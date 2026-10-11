@@ -1,3 +1,4 @@
+import ScrollToTopLink from './ScrollToTopLink.jsx';
 import { Link } from 'react-router-dom';
 import '../CssPages/Navbar.css';
 
@@ -10,11 +11,11 @@ function Navbar() {
         </Link>
 
         <nav className="site-nav">
-          <Link to="/">Home</Link>
-          <Link to="/find-tutors">Find Tutors</Link>
-          <Link to="/how-it-works">How it works</Link>
-          <Link to="/about">About</Link>
-          <Link to="/contact">Contact</Link>
+          <ScrollToTopLink to="/">Home</ScrollToTopLink>
+          <ScrollToTopLink to="/find-tutors">Find Tutors</ScrollToTopLink>
+          <ScrollToTopLink to="/how-it-works">How it works</ScrollToTopLink>
+          <ScrollToTopLink to="/about">About</ScrollToTopLink>
+          <ScrollToTopLink to="/contact">Contact</ScrollToTopLink>
         </nav>
 
         <div className="site-header-actions">
@@ -22,7 +23,7 @@ function Navbar() {
             Log in
           </Link>
           <Link to="/register" className="nav-register">
-            Get Started
+            Sign Up
           </Link>
         </div>
       </div>

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import '../CssPages/TutorProfile.css';
 
 const tutors = {
@@ -150,6 +150,7 @@ const availableTimes = [
 
 function TutorProfile() {
   const { id } = useParams();
+  const navigate = useNavigate();
   const tutor = tutors[id] || tutors['1'];
 
   const [selectedDay, setSelectedDay] = useState('Sat');
@@ -157,6 +158,7 @@ function TutorProfile() {
   const [mode, setMode] = useState(tutor.modes[0]);
   const [duration, setDuration] = useState('1');
   const [learnerGrade, setLearnerGrade] = useState('8');
+  const [learnerMessage, setLearnerMessage] = useState('');
   const [bookingMessage, setBookingMessage] = useState('');
   const [showConfirmation, setShowConfirmation] = useState(false);
 
@@ -171,36 +173,38 @@ function TutorProfile() {
       return;
     }
 
-    setBookingMessage(
-      `Demo booking request: ${tutor.name}, ${selectedDay} ${selectedTime}, Grade ${learnerGrade}, ${mode}, ${duration} hour(s). Total: ${total} ETB.`,
-    );
-    setShowConfirmation(true);
+    const gradeRange = tutor.grades.match(/Grades (\d+) to (\d+)/);
+    const selectedGrade = Number(learnerGrade);
+
+    if (
+      gradeRange &&
+      (selectedGrade < Number(gradeRange[1]) ||
+        selectedGrade > Number(gradeRange[2]))
+    ) {
+      setBookingMessage(
+        `This tutor teaches ${tutor.grades}. Please select a grade within that range.`,
+      );
+      setShowConfirmation(false);
+      return;
+    }
+
+    navigate('/booking-confirmation', {
+      state: {
+        tutorId: id,
+        tutorName: tutor.name,
+        selectedDay,
+        selectedTime,
+        learnerGrade,
+        mode,
+        duration,
+        total,
+        learnerMessage,
+      },
+    });
   }
 
   return (
     <div className="app">
-      <header className="navbar">
-        <Link to="/" className="logo">
-          Tutor<span>Connect</span>
-        </Link>
-
-        <nav className="nav-links">
-          <Link to="/find-tutors">Find a tutor</Link>
-          <a href="/#how-it-works">How it works</a>
-          <a href="/#safety">Safety</a>
-          <a href="/#become-tutor">For tutors</a>
-        </nav>
-
-        <div className="nav-actions">
-          <Link to="/login" className="login-btn">
-            Log in
-          </Link>
-          <Link to="/signup" className="primary-btn">
-            Sign up
-          </Link>
-        </div>
-      </header>
-
       <main className="profile-page">
         <Link to="/find-tutors" className="back-link">
           ← Back to results
@@ -333,6 +337,19 @@ function TutorProfile() {
                   </option>
                 ))}
               </select>
+
+              <label htmlFor="learner-message">
+                Message to the tutor (optional)
+              </label>
+
+              <textarea
+                id="learner-message"
+                value={learnerMessage}
+                onChange={(event) => setLearnerMessage(event.target.value)}
+                placeholder="Tell the tutor what subject or topic you need help with..."
+                rows={4}
+                maxLength={500}
+              />
 
               <label>Choose a day</label>
               <div className="day-picker">

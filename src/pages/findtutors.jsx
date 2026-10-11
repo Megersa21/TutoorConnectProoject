@@ -1,5 +1,5 @@
-import { useMemo, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useMemo, useState } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import '../CssPages/FindTutors.css';
 
 const tutors = [
@@ -102,8 +102,11 @@ const tutors = [
 ];
 
 function FindTutors() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const [search, setSearch] = useState('');
-  const [subject, setSubject] = useState('Mathematics');
+  const [subject, setSubject] = useState('Any');
   const [grade, setGrade] = useState('');
   const [mode, setMode] = useState('Any');
   const [maxPrice, setMaxPrice] = useState(400);
@@ -111,7 +114,16 @@ function FindTutors() {
   const [verifiedOnly, setVerifiedOnly] = useState(false);
   const [sort, setSort] = useState('recommended');
   const [saved, setSaved] = useState([]);
-  const navigate = useNavigate();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+
+    setSearch(params.get('search') || '');
+    setSubject(params.get('subject') || 'Any');
+    setGrade(params.get('grade') || '');
+    setMode(params.get('mode') || 'Any');
+    setVerifiedOnly(params.get('verified') === 'true');
+  }, [location.search]);
 
   const filteredTutors = useMemo(() => {
     const results = tutors.filter((tutor) => {
@@ -175,28 +187,6 @@ function FindTutors() {
 
   return (
     <div className="app">
-      <header className="navbar">
-        <a href="/" className="logo">
-          Tutor<span>Connect</span>
-        </a>
-
-        <nav className="nav-links">
-          <a href="/find-tutors">Find a tutor</a>
-          <a href="/#how-it-works">How it works</a>
-          <a href="/#safety">Safety</a>
-          <a href="/#become-tutor">For tutors</a>
-        </nav>
-
-        <div className="nav-actions">
-          <a href="/login" className="login-btn">
-            Log in
-          </a>
-          <a href="/signup" className="primary-btn">
-            Sign up
-          </a>
-        </div>
-      </header>
-
       <main className="find-page">
         <div className="find-heading">
           <span className="eyebrow">Find your learning partner</span>
@@ -405,26 +395,6 @@ function FindTutors() {
           </section>
         </div>
       </main>
-
-      <footer className="footer">
-        <div className="footer-brand">
-          <a href="/" className="logo">
-            Tutor<span>Connect</span>
-          </a>
-          <p>Safer, simpler access to tutoring for Grade 0 to Grade 12.</p>
-        </div>
-        <div>
-          <h4>Platform</h4>
-          <a href="/find-tutors">Find a tutor</a>
-          <a href="/#how-it-works">How it works</a>
-          <a href="/#safety">Safety</a>
-        </div>
-        <div>
-          <h4>Legal</h4>
-          <a href="/terms">Terms</a>
-          <a href="/privacy">Privacy notice</a>
-        </div>
-      </footer>
     </div>
   );
 }

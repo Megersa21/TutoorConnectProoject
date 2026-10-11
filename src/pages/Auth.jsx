@@ -1,11 +1,20 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../CssPages/Auth.css';
 
 function Auth() {
-  const [isLogin, setIsLogin] = useState(true);
   const [role, setRole] = useState('learner');
   const [message, setMessage] = useState('');
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const [isLogin, setIsLogin] = useState(location.pathname !== '/register');
+
+  const switchMode = (loginMode) => {
+    setIsLogin(loginMode);
+    navigate(loginMode ? '/login' : '/register');
+  };
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -59,10 +68,7 @@ function Auth() {
             <button
               type="button"
               className={isLogin ? 'auth-tab active' : 'auth-tab'}
-              onClick={() => {
-                setIsLogin(true);
-                setMessage('');
-              }}
+              onClick={() => switchMode(true)}
             >
               Login
             </button>
@@ -70,10 +76,7 @@ function Auth() {
             <button
               type="button"
               className={!isLogin ? 'auth-tab active' : 'auth-tab'}
-              onClick={() => {
-                setIsLogin(false);
-                setMessage('');
-              }}
+              onClick={() => switchMode(false)}
             >
               Create Account
             </button>

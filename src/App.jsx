@@ -10,10 +10,14 @@ import Contact from './pages/Contact.jsx';
 import About from './pages/About.jsx';
 import HowItWorks from './pages/HowItWorks.jsx';
 import Navbar from './Components/Navbar.jsx';
+import Footer from './Components/footer.jsx';
+import ScrollTop from './Components/ScrollTop.jsx';
+import BookingConfirmation from './pages/BookingConfrimation.jsx';
 
 function App() {
   return (
     <BrowserRouter>
+      <ScrollTop />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -27,7 +31,9 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/about" element={<About />} />
         <Route path="/how-it-works" element={<HowItWorks />} />
+        <Route path="/booking-confirmation" element={<BookingConfirmation />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

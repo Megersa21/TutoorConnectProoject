@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import '../App.css';
 
@@ -53,24 +54,6 @@ function Home() {
 
   return (
     <div className="app">
-      <header className="navbar">
-        <a href="#home" className="logo">
-          Tutor<span>Connect</span>
-        </a>
-
-        <nav className="nav-links">
-          <a href="#find-tutors">Find a tutor</a>
-          <a href="#how-it-works">How it works</a>
-          <a href="#safety">Safety</a>
-          <a href="#become-tutor">For tutors</a>
-        </nav>
-
-        <div className="nav-actions">
-          <button className="login-btn">Log in</button>
-          <button className="primary-btn">Sign up</button>
-        </div>
-      </header>
-
       <main>
         <section className="hero" id="home">
           <div className="hero-content">
@@ -88,9 +71,9 @@ function Home() {
             </p>
 
             <div className="hero-actions">
-              <a href="#find-tutors" className="primary-btn">
+              <Link to="/find-tutors" className="primary-btn">
                 Find a tutor
-              </a>
+              </Link>
               <a href="#become-tutor" className="secondary-btn">
                 Become a tutor
               </a>
@@ -99,13 +82,22 @@ function Home() {
 
           <div className="search-card" id="find-tutors">
             <h2>What do you need help with?</h2>
-
             <form
               onSubmit={(event) => {
                 event.preventDefault();
-                document.getElementById('tutor-results')?.scrollIntoView({
-                  behavior: 'smooth',
-                });
+
+                const form = event.currentTarget;
+                const subject = form.querySelector('#subject').value;
+                const grade = form.querySelector('#grade').value;
+                const mode = form.querySelector('#mode').value;
+
+                const params = new URLSearchParams();
+
+                if (subject) params.set('subject', subject);
+                if (grade) params.set('grade', grade);
+                if (mode) params.set('mode', mode);
+
+                navigate(`/find-tutors?${params.toString()}`);
               }}
             >
               <label htmlFor="subject">Subject</label>
@@ -152,14 +144,14 @@ function Home() {
           </div>
 
           <div className="subjects-list">
-            {subjects.map((subject, index) => (
-              <a href="#find-tutors" className="subject-chip" key={subject}>
-                <span className="subject-number">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
+            {subjects.map((subject) => (
+              <Link
+                to={`/find-tutors?subject=${encodeURIComponent(subject)}`}
+                className="subject-chip"
+                key={subject}
+              >
                 {subject}
-                <span>↗</span>
-              </a>
+              </Link>
             ))}
           </div>
         </section>
@@ -213,9 +205,9 @@ function Home() {
               Learners are minors, so safety comes first. Guardians stay in
               control and every report creates a trackable case.
             </p>
-            <a href="#find-tutors" className="primary-btn">
+            <Link to="/find-tutors?verified=true" className="primary-btn">
               See verified tutors
-            </a>
+            </Link>
           </div>
 
           <div className="safety-features">
@@ -259,9 +251,9 @@ function Home() {
               <span className="eyebrow">Learn from the best</span>
               <h2>Meet some of our tutors</h2>
             </div>
-            <a href="#find-tutors" className="text-link">
+            <Link to="/find-tutors" className="text-link">
               Browse all tutors →
-            </a>
+            </Link>
           </div>
 
           <div className="tutors-grid">
@@ -286,11 +278,7 @@ function Home() {
 
                 <button
                   className="secondary-btn full-width"
-                  onClick={() =>
-                    alert(
-                      `Tutor profile for ${tutor.name} will be added in the next step.`,
-                    )
-                  }
+                  onClick={() => navigate(`/tutors/${tutor.id}`)}
                 >
                   View tutor profile →
                 </button>
@@ -312,41 +300,11 @@ function Home() {
               and reach learners and guardians looking for your subjects.
             </p>
           </div>
-          <button className="primary-btn">Create tutor profile →</button>
+          <button className="primary-btn" onClick={() => navigate('/register')}>
+            Create tutor profile →
+          </button>
         </section>
       </main>
-
-      <footer className="footer">
-        <div className="footer-brand">
-          <a href="#home" className="logo">
-            Tutor<span>Connect</span>
-          </a>
-          <p>
-            Safer, simpler access to tutoring for learners from Grade 0 to Grade
-            12.
-          </p>
-        </div>
-
-        <div>
-          <h4>Platform</h4>
-          <a href="#find-tutors">Find a tutor</a>
-          <a href="#how-it-works">How it works</a>
-          <a href="#safety">Safety</a>
-        </div>
-
-        <div>
-          <h4>Legal</h4>
-          <a href="#terms">Terms</a>
-          <a href="#privacy">Privacy notice</a>
-          <a href="#child-safety">Child safety policy</a>
-        </div>
-
-        <div>
-          <h4>Language</h4>
-          <span>English</span>
-          <span>Amharic (coming soon)</span>
-        </div>
-      </footer>
     </div>
   );
 }
