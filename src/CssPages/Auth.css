@@ -1,0 +1,261 @@
+.auth-page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  background: #f7f9fc;
+  color: #172b4d;
+}
+
+.auth-intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 42px;
+  color: #fff;
+  background: linear-gradient(145deg, #172554, #2563eb);
+}
+
+.auth-logo {
+  color: #fff;
+  text-decoration: none;
+  font-size: 25px;
+  font-weight: 800;
+}
+
+.auth-intro-content {
+  max-width: 480px;
+  margin: 55px auto;
+}
+
+.auth-tag {
+  display: inline-block;
+  padding: 8px 12px;
+  border: 1px solid #ffffff55;
+  border-radius: 30px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.auth-intro-content h1 {
+  margin: 24px 0 16px;
+  font-size: clamp(34px, 4vw, 49px);
+  line-height: 1.15;
+}
+
+.auth-intro-content > p {
+  color: #dbeafe;
+  line-height: 1.8;
+}
+
+.auth-benefit {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+  font-size: 14px;
+}
+
+.auth-benefit span {
+  display: grid;
+  place-items: center;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background: #ffffff20;
+}
+
+.auth-footer-text {
+  color: #dbeafe;
+  font-size: 12px;
+}
+
+.auth-form-section {
+  display: grid;
+  place-items: center;
+  padding: 35px 22px;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 450px;
+  padding: 32px;
+  border: 1px solid #e5eaf2;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 15px 45px #1725540d;
+}
+
+.auth-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  padding: 5px;
+  border-radius: 10px;
+  background: #f1f5f9;
+}
+
+.auth-tab {
+  padding: 12px 8px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  color: #64748b;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.auth-tab.active {
+  background: #fff;
+  color: #2563eb;
+  box-shadow: 0 1px 4px #17255412;
+}
+
+.auth-heading {
+  margin: 28px 0 22px;
+}
+
+.auth-heading h2 {
+  margin: 0 0 9px;
+  font-size: 27px;
+}
+
+.auth-heading p {
+  color: #718096;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.auth-form {
+  display: grid;
+  gap: 17px;
+}
+
+.auth-form > label {
+  display: grid;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.auth-form input:not([type='checkbox']),
+.auth-form select {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 13px;
+  border: 1px solid #dce3ed;
+  border-radius: 8px;
+  background: #fff;
+  color: #172b4d;
+  font: inherit;
+  font-weight: 400;
+}
+
+.auth-form input:focus,
+.auth-form select:focus {
+  outline: 2px solid #bfdbfe;
+  border-color: #2563eb;
+}
+
+.auth-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 12px;
+}
+
+.auth-remember {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #64748b;
+}
+
+.auth-text-button,
+.auth-switch button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #2563eb;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.auth-submit {
+  width: 100%;
+  padding: 14px;
+  border: 0;
+  border-radius: 9px;
+  background: #2563eb;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.auth-submit:hover {
+  background: #1d4ed8;
+}
+
+.auth-message {
+  margin: 0;
+  padding: 12px;
+  border-radius: 8px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.auth-switch {
+  margin-top: 24px;
+  text-align: center;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.auth-terms {
+  margin: 22px 0 0;
+  color: #94a3b8;
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+@media (max-width: 800px) {
+  .auth-page {
+    grid-template-columns: 1fr;
+  }
+
+  .auth-intro {
+    padding: 25px;
+  }
+
+  .auth-intro-content {
+    margin: 45px 0 25px;
+  }
+
+  .auth-intro-content h1 {
+    font-size: 35px;
+  }
+
+  .auth-footer-text {
+    margin-bottom: 0;
+  }
+
+  .auth-form-section {
+    padding: 25px 16px;
+  }
+}
+
+@media (max-width: 450px) {
+  .auth-card {
+    padding: 22px 17px;
+  }
+
+  .auth-options {
+    align-items: flex-start;
+  }
+}

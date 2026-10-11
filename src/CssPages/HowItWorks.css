@@ -1,0 +1,144 @@
+.how-page {
+  background: #ffffff;
+  color: #172033;
+}
+
+.how-hero {
+  padding: 85px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #edf3ff, #f8faff);
+}
+
+.how-hero h1 {
+  max-width: 800px;
+  margin: 20px auto;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  line-height: 1.15;
+}
+
+.how-hero > p {
+  max-width: 620px;
+  margin: 0 auto 28px;
+  color: #647084;
+  line-height: 1.8;
+}
+
+.how-primary-btn {
+  display: inline-block;
+  padding: 14px 24px;
+  border-radius: 9px;
+  background: #365bd8;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.how-primary-btn:hover {
+  background: #2848b7;
+}
+
+.how-steps-section,
+.how-roles-section {
+  padding: 75px 5%;
+}
+
+.how-heading {
+  max-width: 700px;
+  margin: 0 auto 40px;
+  text-align: center;
+}
+
+.how-heading h2 {
+  margin: 15px 0;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.how-heading p {
+  color: #647084;
+  line-height: 1.7;
+}
+
+.how-steps-grid,
+.how-roles-grid {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.how-step-card,
+.how-role-card {
+  padding: 25px;
+  border: 1px solid #e5eaf2;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.how-step-number {
+  color: #365bd8;
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+.how-step-icon,
+.how-role-icon {
+  margin: 18px 0;
+  font-size: 2.2rem;
+}
+
+.how-step-card h3,
+.how-role-card h3 {
+  margin-bottom: 10px;
+}
+
+.how-step-card p,
+.how-role-card p {
+  color: #647084;
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+
+.how-roles-section {
+  background: #f7f9fc;
+}
+
+.how-roles-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.how-bottom {
+  padding: 75px 20px;
+  text-align: center;
+}
+
+.how-bottom h2 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.how-bottom p {
+  margin-bottom: 25px;
+  color: #647084;
+}
+
+@media (max-width: 900px) {
+  .how-steps-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .how-steps-grid,
+  .how-roles-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .how-hero {
+    padding: 60px 20px;
+  }
+
+  .how-steps-section,
+  .how-roles-section {
+    padding: 55px 5%;
+  }
+}

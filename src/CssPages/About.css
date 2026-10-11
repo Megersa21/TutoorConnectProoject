@@ -1,0 +1,141 @@
+.about-page {
+  background: #ffffff;
+  color: #172033;
+  min-height: 100vh;
+}
+
+.about-hero {
+  padding: 85px 20px;
+  text-align: center;
+  background: linear-gradient(135deg, #edf3ff, #f8faff);
+}
+
+.about-hero h1 {
+  max-width: 800px;
+  margin: 20px auto;
+  font-size: clamp(2.2rem, 5vw, 3.7rem);
+  line-height: 1.15;
+}
+
+.about-hero > p {
+  max-width: 650px;
+  margin: 0 auto 28px;
+  color: #647084;
+  line-height: 1.8;
+}
+
+.about-cta {
+  display: inline-block;
+  padding: 13px 23px;
+  background: #365bd8;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+  border-radius: 9px;
+  transition: background 0.2s ease;
+}
+
+.about-cta:hover {
+  background: #2848b7;
+}
+
+.about-intro {
+  width: min(1100px, 90%);
+  margin: 0 auto;
+  padding: 85px 0;
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr;
+  gap: 55px;
+  align-items: center;
+}
+
+.about-intro-text h2,
+.about-section-heading h2 {
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+  line-height: 1.25;
+}
+
+.about-intro-text p,
+.about-highlight p,
+.about-value-card p,
+.about-section-heading p,
+.about-bottom p {
+  color: #647084;
+  line-height: 1.8;
+}
+
+.about-highlight {
+  padding: 32px;
+  border: 1px solid #e4eaf5;
+  border-radius: 18px;
+  background: #f8faff;
+}
+
+.about-highlight-icon {
+  font-size: 2.5rem;
+}
+
+.about-values {
+  padding: 75px 5%;
+  background: #f7f9fc;
+}
+
+.about-section-heading {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto 40px;
+}
+
+.about-value-grid {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.about-value-card {
+  padding: 28px;
+  border: 1px solid #e5eaf2;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.about-value-card > span {
+  font-size: 2rem;
+}
+
+.about-value-card h3 {
+  margin-top: 18px;
+}
+
+.about-bottom {
+  padding: 75px 20px;
+  text-align: center;
+}
+
+.about-bottom h2 {
+  max-width: 700px;
+  margin: 0 auto 15px;
+  font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+.about-bottom p {
+  margin-bottom: 25px;
+}
+
+@media (max-width: 750px) {
+  .about-intro {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 55px 0;
+  }
+
+  .about-value-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-hero {
+    padding: 60px 20px;
+  }
+}

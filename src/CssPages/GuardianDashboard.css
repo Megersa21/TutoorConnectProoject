@@ -1,0 +1,377 @@
+.guardian-dashboard {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 245px minmax(0, 1fr);
+  background: #f5f7fb;
+  color: #172b4d;
+}
+
+.guardian-sidebar {
+  background: #fff;
+  border-right: 1px solid #e5eaf2;
+  padding: 28px 18px;
+}
+
+.guardian-sidebar h2 {
+  color: #2563eb;
+  font-size: 23px;
+  margin: 0 0 35px;
+}
+
+.guardian-sidebar-label,
+.guardian-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  color: #8492a6;
+}
+
+.guardian-nav {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  background: transparent;
+  padding: 13px 14px;
+  margin: 7px 0;
+  border-radius: 9px;
+  color: #5d6b82;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.guardian-nav.active {
+  background: #eaf1ff;
+  color: #2563eb;
+  font-weight: 700;
+}
+
+.guardian-main {
+  min-width: 0;
+  padding: 32px;
+}
+
+.guardian-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 26px;
+}
+
+.guardian-header h1 {
+  font-size: clamp(25px, 3vw, 34px);
+  margin: 8px 0;
+}
+
+.guardian-header p {
+  color: #718096;
+  margin: 0;
+}
+
+.guardian-avatar,
+.guardian-learner-avatar {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #dbeafe;
+  color: #1d4ed8;
+  font-weight: 800;
+}
+
+.guardian-welcome {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 28px;
+  margin-bottom: 24px;
+  border-radius: 16px;
+  color: #fff;
+  background: linear-gradient(120deg, #1e40af, #3b82f6);
+}
+
+.guardian-welcome p {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+}
+
+.guardian-welcome h2 {
+  font-size: clamp(20px, 2.5vw, 28px);
+  margin: 10px 0;
+}
+
+.guardian-welcome span {
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.guardian-welcome-icon {
+  font-size: 45px;
+}
+
+.guardian-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.guardian-stat,
+.guardian-panel {
+  background: #fff;
+  border: 1px solid #e5eaf2;
+  border-radius: 14px;
+  padding: 22px;
+}
+
+.guardian-stat > span {
+  color: #718096;
+  font-size: 13px;
+}
+
+.guardian-stat h2 {
+  font-size: 30px;
+  margin: 12px 0 5px;
+}
+
+.guardian-stat p,
+.guardian-panel > p,
+.guardian-panel-heading p {
+  color: #8492a6;
+  font-size: 13px;
+}
+
+.guardian-panel {
+  margin-bottom: 22px;
+}
+
+.guardian-panel > h2,
+.guardian-panel-heading h2 {
+  margin: 0 0 8px;
+  font-size: 20px;
+}
+
+.guardian-panel-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.guardian-panel-heading button {
+  background: transparent;
+  border: 0;
+  color: #2563eb;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.guardian-session,
+.guardian-request,
+.guardian-notification {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 17px 0;
+  border-top: 1px solid #edf0f5;
+}
+
+.guardian-session-date {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 58px;
+  min-height: 58px;
+  border-radius: 10px;
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.guardian-session-date span {
+  font-size: 11px;
+}
+
+.guardian-session-date strong {
+  font-size: 19px;
+}
+
+.guardian-session-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.guardian-session-info h3,
+.guardian-request h3,
+.guardian-learner-card h3 {
+  font-size: 15px;
+  margin: 0 0 7px;
+}
+
+.guardian-session-info p,
+.guardian-request p,
+.guardian-learner-card p {
+  font-size: 13px;
+  color: #718096;
+  margin: 0 0 6px;
+}
+
+.guardian-session-info > span,
+.guardian-learner-card > span {
+  font-size: 12px;
+  color: #8492a6;
+}
+
+.guardian-status {
+  border-radius: 20px;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.guardian-status.confirmed {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.guardian-status.pending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.guardian-request {
+  justify-content: space-between;
+}
+
+.guardian-request > div:first-child {
+  min-width: 0;
+}
+
+.guardian-request-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.guardian-request-actions button {
+  border: 0;
+  border-radius: 7px;
+  padding: 9px 12px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 12px;
+}
+
+.guardian-approve {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.guardian-decline {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.guardian-learner-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 16px;
+  margin-top: 22px;
+}
+
+.guardian-learner-card {
+  border: 1px solid #e5eaf2;
+  border-radius: 12px;
+  padding: 22px;
+}
+
+.guardian-learner-avatar {
+  margin-bottom: 15px;
+}
+
+.guardian-notification span {
+  font-size: 23px;
+}
+
+.guardian-notification p {
+  margin: 0;
+  font-size: 14px;
+}
+
+.guardian-empty {
+  padding: 20px 0;
+  text-align: center;
+}
+
+@media (max-width: 1000px) {
+  .guardian-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .guardian-dashboard {
+    grid-template-columns: 1fr;
+  }
+
+  .guardian-sidebar {
+    border-right: 0;
+    border-bottom: 1px solid #e5eaf2;
+    padding: 18px;
+  }
+
+  .guardian-sidebar h2 {
+    margin-bottom: 15px;
+  }
+
+  .guardian-sidebar-label {
+    margin-bottom: 8px;
+  }
+
+  .guardian-nav {
+    display: inline-block;
+    width: auto;
+    margin: 3px;
+  }
+
+  .guardian-main {
+    padding: 18px;
+  }
+
+  .guardian-stats {
+    gap: 10px;
+  }
+
+  .guardian-stat,
+  .guardian-panel {
+    padding: 16px;
+  }
+
+  .guardian-welcome {
+    padding: 20px;
+  }
+
+  .guardian-welcome-icon {
+    display: none;
+  }
+
+  .guardian-session,
+  .guardian-request {
+    align-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .guardian-status {
+    margin-left: auto;
+  }
+
+  .guardian-panel-heading {
+    align-items: flex-start;
+  }
+}

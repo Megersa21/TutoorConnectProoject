@@ -1,0 +1,140 @@
+.contact-page {
+  min-height: 100vh;
+  background: #f7f9fc;
+  color: #172033;
+  padding-bottom: 70px;
+}
+
+.contact-hero {
+  text-align: center;
+  padding: 70px 20px 55px;
+  background: #edf3ff;
+}
+
+.contact-hero h1 {
+  max-width: 700px;
+  margin: 18px auto;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.15;
+}
+
+.contact-hero p {
+  max-width: 620px;
+  margin: 0 auto;
+  color: #647084;
+  line-height: 1.8;
+}
+
+.section-tag {
+  color: #365bd8;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+.contact-content {
+  width: min(1100px, 92%);
+  margin: 55px auto 0;
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 45px;
+  align-items: start;
+}
+
+.contact-info h2,
+.contact-form h2 {
+  margin-top: 0;
+  margin-bottom: 18px;
+}
+
+.contact-info > p {
+  color: #647084;
+  line-height: 1.8;
+}
+
+.contact-info-item {
+  margin-top: 30px;
+}
+
+.contact-info-item h3 {
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.contact-info-item p {
+  margin: 5px 0;
+  color: #647084;
+  line-height: 1.6;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 32px;
+  background: white;
+  border: 1px solid #e5eaf2;
+  border-radius: 18px;
+  box-shadow: 0 12px 35px rgba(30, 50, 90, 0.06);
+}
+
+.contact-form label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.contact-form input,
+.contact-form select,
+.contact-form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 14px;
+  border: 1px solid #d8dfeb;
+  border-radius: 9px;
+  background: #fff;
+  color: #172033;
+  font: inherit;
+}
+
+.contact-form textarea {
+  resize: vertical;
+}
+
+.contact-form input:focus,
+.contact-form select:focus,
+.contact-form textarea:focus {
+  outline: 2px solid #c8d6ff;
+  border-color: #365bd8;
+}
+
+.contact-form .primary-btn {
+  margin-top: 10px;
+  padding: 14px;
+  border: none;
+  border-radius: 9px;
+  background: #365bd8;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.contact-form .primary-btn:hover {
+  background: #2848b7;
+}
+
+.contact-success {
+  color: #18794e;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+@media (max-width: 750px) {
+  .contact-content {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .contact-form {
+    padding: 22px;
+  }
+}
