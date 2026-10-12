@@ -40,20 +40,13 @@ function GuardianDashboard() {
     },
   ];
 
-  const [requests, setRequests] = useState([
-    {
-      id: 1,
-      learner: 'Abel Bekele',
-      tutor: 'Dawit Alemu',
-      subject: 'Mathematics',
-    },
-    {
-      id: 2,
-      learner: 'Sara Bekele',
-      tutor: 'Mekdes Tesfaye',
-      subject: 'English',
-    },
-  ]);
+  const [requests, setRequests] = useState(() => {
+    try {
+      return JSON.parse(sessionStorage.getItem('tutorConnectBookings') || '[]');
+    } catch {
+      return [];
+    }
+  });
 
   const [notifications, setNotifications] = useState([
     'Your Mathematics session has been confirmed.',
@@ -64,19 +57,30 @@ function GuardianDashboard() {
   function handleRequest(id, approved) {
     const request = requests.find((item) => item.id === id);
 
-    if (approved && request) {
-      setNotifications((previous) => [
-        `${request.subject} booking for ${request.learner} approved.`,
-        ...previous,
-      ]);
-    } else if (request) {
-      setNotifications((previous) => [
-        `${request.subject} booking for ${request.learner} declined.`,
-        ...previous,
-      ]);
-    }
+    if (!request) return;
 
-    setRequests((previous) => previous.filter((item) => item.id !== id));
+    const updatedBookings = requests.map((item) =>
+      item.id === id
+        ? {
+            ...item,
+            status: approved ? 'Confirmed' : 'Declined',
+          }
+        : item,
+    );
+
+    setRequests(updatedBookings);
+
+    sessionStorage.setItem(
+      'tutorConnectBookings',
+      JSON.stringify(updatedBookings),
+    );
+
+    setNotifications((previous) => [
+      `${request.subject} booking with ${request.tutorName} ${
+        approved ? 'confirmed' : 'declined'
+      }.`,
+      ...previous,
+    ]);
   }
 
   return (
@@ -239,22 +243,33 @@ function GuardianDashboard() {
                     <div>
                       <h3>{request.subject}</h3>
                       <p>
-                        {request.learner} · {request.tutor}
+                        {request.learner} · {request.tutorName || request.tutor}
                       </p>
                     </div>
                     <div className="guardian-request-actions">
-                      <button
-                        className="guardian-approve"
-                        onClick={() => handleRequest(request.id, true)}
-                      >
-                        Approve
-                      </button>
-                      <button
-                        className="guardian-decline"
-                        onClick={() => handleRequest(request.id, false)}
-                      >
-                        Decline
-                      </button>
+                      {request.status === 'Pending' ? (
+                        <>
+                          <button
+                            className="guardian-approve"
+                            onClick={() => handleRequest(request.id, true)}
+                          >
+                            Approve
+                          </button>
+
+                          <button
+                            className="guardian-decline"
+                            onClick={() => handleRequest(request.id, false)}
+                          >
+                            Decline
+                          </button>
+                        </>
+                      ) : (
+                        <span
+                          className={`guardian-status ${request.status.toLowerCase()}`}
+                        >
+                          {request.status}
+                        </span>
+                      )}
                     </div>
                   </article>
                 ))
@@ -322,22 +337,33 @@ function GuardianDashboard() {
                   <div>
                     <h3>{request.subject}</h3>
                     <p>
-                      {request.learner} · {request.tutor}
+                      {request.learner} · {request.tutorName}
                     </p>
                   </div>
                   <div className="guardian-request-actions">
-                    <button
-                      className="guardian-approve"
-                      onClick={() => handleRequest(request.id, true)}
-                    >
-                      Approve
-                    </button>
-                    <button
-                      className="guardian-decline"
-                      onClick={() => handleRequest(request.id, false)}
-                    >
-                      Decline
-                    </button>
+                    {request.status === 'Pending' ? (
+                      <>
+                        <button
+                          className="guardian-approve"
+                          onClick={() => handleRequest(request.id, true)}
+                        >
+                          Approve
+                        </button>
+
+                        <button
+                          className="guardian-decline"
+                          onClick={() => handleRequest(request.id, false)}
+                        >
+                          Decline
+                        </button>
+                      </>
+                    ) : (
+                      <span
+                        className={`guardian-status ${request.status.toLowerCase()}`}
+                      >
+                        {request.status}
+                      </span>
+                    )}
                   </div>
                 </article>
               ))

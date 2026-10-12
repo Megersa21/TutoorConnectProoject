@@ -24,6 +24,7 @@ const subjects = [
 
 const tutors = [
   {
+    id: 1,
     initials: 'HT',
     name: 'Hanna Tesfaye',
     subject: 'Mathematics · Grades 6–10',
@@ -32,6 +33,7 @@ const tutors = [
     price: 250,
   },
   {
+    id: 5,
     initials: 'DA',
     name: 'Dawit Alemu',
     subject: 'Physics, Chemistry · Grades 9–12',
@@ -40,6 +42,7 @@ const tutors = [
     price: 320,
   },
   {
+    id: 6,
     initials: 'SB',
     name: 'Selam Bekele',
     subject: 'English · Grades 0–6',

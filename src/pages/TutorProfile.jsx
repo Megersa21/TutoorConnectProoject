@@ -4,6 +4,7 @@ import '../CssPages/TutorProfile.css';
 
 const tutors = {
   1: {
+    id: 1,
     name: 'Hanna Tesfaye',
     initials: 'HT',
     subjects: ['Mathematics'],
@@ -25,6 +26,7 @@ const tutors = {
     ],
   },
   2: {
+    id: 2,
     name: 'Yonas Girma',
     initials: 'YG',
     subjects: ['Mathematics', 'Physics'],
@@ -46,6 +48,7 @@ const tutors = {
     ],
   },
   3: {
+    id: 3,
     name: 'Meseret Kebede',
     initials: 'MK',
     subjects: ['Mathematics'],
@@ -66,6 +69,7 @@ const tutors = {
     ],
   },
   4: {
+    id: 4,
     name: 'Biruk Tadesse',
     initials: 'BT',
     subjects: ['Mathematics'],
@@ -86,6 +90,7 @@ const tutors = {
     ],
   },
   5: {
+    id: 1,
     name: 'Dawit Alemu',
     initials: 'DA',
     subjects: ['Physics', 'Chemistry'],
@@ -106,6 +111,7 @@ const tutors = {
     ],
   },
   6: {
+    id: 1,
     name: 'Selam Bekele',
     initials: 'SB',
     subjects: ['English', 'Amharic'],
@@ -151,7 +157,17 @@ const availableTimes = [
 function TutorProfile() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const tutor = tutors[id] || tutors['1'];
+  const tutor = tutors[id];
+
+  if (!tutor) {
+    return (
+      <main className="tutor-profile">
+        <h2>Tutor not found</h2>
+        <p>This tutor profile does not exist.</p>
+        <Link to="/find-tutors">Back to Find Tutors</Link>
+      </main>
+    );
+  }
 
   const [selectedDay, setSelectedDay] = useState('Sat');
   const [selectedTime, setSelectedTime] = useState('');
@@ -188,18 +204,33 @@ function TutorProfile() {
       return;
     }
 
+    const booking = {
+      id: Date.now(),
+      tutorId: id,
+      tutorName: tutor.name,
+      subject: tutor.subjects?.[0] || 'Tutoring',
+      learner: `Grade ${learnerGrade} learner`,
+      learnerGrade,
+      selectedDay,
+      selectedTime,
+      mode,
+      duration,
+      total,
+      learnerMessage,
+      status: 'Pending',
+    };
+
+    const existingBookings = JSON.parse(
+      sessionStorage.getItem('tutorConnectBookings') || '[]',
+    );
+
+    sessionStorage.setItem(
+      'tutorConnectBookings',
+      JSON.stringify([...existingBookings, booking]),
+    );
+
     navigate('/booking-confirmation', {
-      state: {
-        tutorId: id,
-        tutorName: tutor.name,
-        selectedDay,
-        selectedTime,
-        learnerGrade,
-        mode,
-        duration,
-        total,
-        learnerMessage,
-      },
+      state: booking,
     });
   }
 

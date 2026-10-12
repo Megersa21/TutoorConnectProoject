@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../CssPages/TutorDashboard.css';
 
 function TutorDashboard() {
@@ -46,21 +46,52 @@ function TutorDashboard() {
     'Remember to update your weekly availability.',
   ]);
 
-  const [availability, setAvailability] = useState([
-    { day: 'Monday', enabled: true },
-    { day: 'Tuesday', enabled: true },
-    { day: 'Wednesday', enabled: false },
-    { day: 'Thursday', enabled: true },
-    { day: 'Friday', enabled: true },
-    { day: 'Saturday', enabled: false },
-    { day: 'Sunday', enabled: false },
-  ]);
+  const [availability, setAvailability] = useState(() => {
+    try {
+      const savedAvailability = localStorage.getItem(
+        'tutorConnectAvailability',
+      );
 
+      if (savedAvailability) {
+        return JSON.parse(savedAvailability);
+      }
+    } catch (error) {
+      console.error('Could not load availability:', error);
+    }
+
+    return [
+      { day: 'Monday', enabled: true },
+      { day: 'Tuesday', enabled: true },
+      { day: 'Wednesday', enabled: false },
+      { day: 'Thursday', enabled: true },
+      { day: 'Friday', enabled: true },
+      { day: 'Saturday', enabled: false },
+      { day: 'Sunday', enabled: false },
+    ];
+  });
   const [hourlyRate, setHourlyRate] = useState('500');
   const [subjects, setSubjects] = useState('Mathematics, Physics');
   const [bio, setBio] = useState(
     'I help learners understand difficult concepts through clear explanations and practice.',
   );
+  useEffect(() => {
+    try {
+      const savedProfile = JSON.parse(
+        localStorage.getItem('tutorConnectProfile') || 'null',
+      );
+
+      if (savedProfile) {
+        setHourlyRate(savedProfile.hourlyRate ?? '500');
+        setSubjects(savedProfile.subjects ?? 'Mathematics, Physics');
+        setBio(
+          savedProfile.bio ??
+            'I help learners understand difficult concepts through clear explanations and practice.',
+        );
+      }
+    } catch (error) {
+      console.error('Could not load tutor profile:', error);
+    }
+  }, []);
   const [profileMessage, setProfileMessage] = useState('');
 
   function handleRequest(id, approved) {
@@ -90,20 +121,46 @@ function TutorDashboard() {
   }
 
   function toggleAvailability(day) {
-    setAvailability((previous) =>
-      previous.map((item) =>
+    setAvailability((previous) => {
+      const updatedAvailability = previous.map((item) =>
         item.day === day ? { ...item, enabled: !item.enabled } : item,
-      ),
-    );
+      );
+
+      try {
+        localStorage.setItem(
+          'tutorConnectAvailability',
+          JSON.stringify(updatedAvailability),
+        );
+      } catch (error) {
+        console.error('Could not save availability:', error);
+      }
+
+      return updatedAvailability;
+    });
   }
 
   function saveProfile(event) {
     event.preventDefault();
-    setProfileMessage('Your profile changes are saved in this demo.');
-    setNotifications((previous) => [
-      'You updated your tutor profile.',
-      ...previous,
-    ]);
+
+    const profile = {
+      subjects,
+      hourlyRate,
+      bio,
+    };
+
+    try {
+      localStorage.setItem('tutorConnectProfile', JSON.stringify(profile));
+
+      setProfileMessage('Your profile has been saved successfully.');
+
+      setNotifications((previous) => [
+        'You updated your tutor profile.',
+        ...previous,
+      ]);
+    } catch (error) {
+      setProfileMessage('Could not save your profile. Please try again.');
+      console.error('Could not save tutor profile:', error);
+    }
   }
 
   return (

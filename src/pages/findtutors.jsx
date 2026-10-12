@@ -367,8 +367,12 @@ function FindTutors() {
 
                       <div className="find-card-actions">
                         <button
+                          type="button"
                           className="primary-btn"
-                          onClick={() => navigate(`/tutors/${tutor.id}`)}
+                          onClick={() => {
+                            console.log('Tutor:', tutor.name, 'ID:', tutor.id);
+                            navigate(`/tutors/${tutor.id}`);
+                          }}
                         >
                           View profile
                         </button>
