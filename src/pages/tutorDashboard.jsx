@@ -4,47 +4,85 @@ import '../CssPages/TutorDashboard.css';
 function TutorDashboard() {
   const [activeTab, setActiveTab] = useState('overview');
 
-  const [sessions, setSessions] = useState([
-    {
-      id: 1,
-      learner: 'Abel Bekele',
-      subject: 'Mathematics',
-      date: 'Oct 12, 2026',
-      time: '10:00 AM',
-      status: 'Confirmed',
-    },
-    {
-      id: 2,
-      learner: 'Sara Bekele',
-      subject: 'Physics',
-      date: 'Oct 13, 2026',
-      time: '2:00 PM',
-      status: 'Pending',
-    },
-  ]);
+  const [sessions, setSessions] = useState(() => {
+    try {
+      const savedSessions = localStorage.getItem('tutorConnectSessions');
 
-  const [requests, setRequests] = useState([
-    {
-      id: 1,
-      learner: 'Abel Bekele',
-      subject: 'Mathematics',
-      date: 'Oct 14, 2026',
-      time: '11:00 AM',
-    },
-    {
-      id: 2,
-      learner: 'Sara Bekele',
-      subject: 'Physics',
-      date: 'Oct 15, 2026',
-      time: '3:00 PM',
-    },
-  ]);
+      if (savedSessions !== null) {
+        return JSON.parse(savedSessions);
+      }
+    } catch (error) {
+      console.error('Could not load sessions:', error);
+    }
 
-  const [notifications, setNotifications] = useState([
-    'Your tutor profile is ready to manage.',
-    'You have two new booking requests.',
-    'Remember to update your weekly availability.',
-  ]);
+    return [
+      {
+        id: 1,
+        learner: 'Abel Bekele',
+        subject: 'Mathematics',
+        date: 'Oct 12, 2026',
+        time: '10:00 AM',
+        status: 'Confirmed',
+      },
+      {
+        id: 2,
+        learner: 'Sara Bekele',
+        subject: 'Physics',
+        date: 'Oct 13, 2026',
+        time: '2:00 PM',
+        status: 'Pending',
+      },
+    ];
+  });
+
+  const [requests, setRequests] = useState(() => {
+    try {
+      const savedRequests = localStorage.getItem('tutorConnectRequests');
+
+      if (savedRequests !== null) {
+        return JSON.parse(savedRequests);
+      }
+    } catch (error) {
+      console.error('Could not load booking requests:', error);
+    }
+
+    return [
+      {
+        id: 1,
+        learner: 'Abel Bekele',
+        subject: 'Mathematics',
+        date: 'Oct 14, 2026',
+        time: '11:00 AM',
+      },
+      {
+        id: 2,
+        learner: 'Sara Bekele',
+        subject: 'Physics',
+        date: 'Oct 15, 2026',
+        time: '3:00 PM',
+      },
+    ];
+  });
+
+  const [notifications, setNotifications] = useState(() => {
+    try {
+      const savedNotifications = localStorage.getItem(
+        'tutorConnectNotifications',
+      );
+
+      if (savedNotifications !== null) {
+        return JSON.parse(savedNotifications);
+      }
+    } catch (error) {
+      console.error('Could not load notifications:', error);
+    }
+
+    return [
+      'Your tutor profile is ready to manage.',
+      'You have two new booking requests.',
+      'Remember to update your weekly availability.',
+    ];
+  });
 
   const [availability, setAvailability] = useState(() => {
     try {
@@ -93,31 +131,71 @@ function TutorDashboard() {
     }
   }, []);
   const [profileMessage, setProfileMessage] = useState('');
-
   function handleRequest(id, approved) {
     const request = requests.find((item) => item.id === id);
 
     if (!request) return;
 
-    if (approved) {
-      setSessions((previous) => [
-        ...previous,
-        {
-          ...request,
-          id: Date.now(),
-          status: 'Confirmed',
-        },
-      ]);
-    }
+    const updatedRequests = requests.filter((item) => item.id !== id);
 
-    setNotifications((previous) => [
+    const updatedSessions = approved
+      ? [
+          ...sessions,
+          {
+            ...request,
+            id: Date.now(),
+            status: 'Confirmed',
+          },
+        ]
+      : sessions;
+
+    const updatedNotifications = [
       `${request.subject} request from ${request.learner} was ${
         approved ? 'accepted' : 'declined'
       }.`,
-      ...previous,
-    ]);
+      ...notifications,
+    ];
 
-    setRequests((previous) => previous.filter((item) => item.id !== id));
+    const existingBookings = JSON.parse(
+      localStorage.getItem('tutorConnectBookings') || '[]',
+    );
+
+    const updatedBookings = existingBookings.map((item) =>
+      item.id === id
+        ? {
+            ...item,
+            status: approved ? 'Confirmed' : 'Declined',
+          }
+        : item,
+    );
+
+    localStorage.setItem(
+      'tutorConnectBookings',
+      JSON.stringify(updatedBookings),
+    );
+
+    try {
+      localStorage.setItem(
+        'tutorConnectRequests',
+        JSON.stringify(updatedRequests),
+      );
+
+      localStorage.setItem(
+        'tutorConnectSessions',
+        JSON.stringify(updatedSessions),
+      );
+
+      localStorage.setItem(
+        'tutorConnectNotifications',
+        JSON.stringify(updatedNotifications),
+      );
+
+      setRequests(updatedRequests);
+      setSessions(updatedSessions);
+      setNotifications(updatedNotifications);
+    } catch (error) {
+      console.error('Could not save booking changes:', error);
+    }
   }
 
   function toggleAvailability(day) {

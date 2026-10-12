@@ -220,20 +220,46 @@ function TutorProfile() {
       status: 'Pending',
     };
 
+    const newRequest = {
+      ...booking,
+      date: `Oct ${
+        availableDays.find((day) => day.day === selectedDay)?.date
+      }, 2026`,
+      time: selectedTime,
+    };
+
+    const existingRequests = JSON.parse(
+      localStorage.getItem('tutorConnectRequests') || '[]',
+    );
+
     const existingBookings = JSON.parse(
+      localStorage.getItem('tutorConnectBookings') || '[]',
+    );
+
+    localStorage.setItem(
+      'tutorConnectRequests',
+      JSON.stringify([...existingRequests, newRequest]),
+    );
+
+    localStorage.setItem(
+      'tutorConnectBookings',
+      JSON.stringify([...existingBookings, newRequest]),
+    );
+
+    // Keep the confirmation page working if it reads sessionStorage.
+    const sessionBookings = JSON.parse(
       sessionStorage.getItem('tutorConnectBookings') || '[]',
     );
 
     sessionStorage.setItem(
       'tutorConnectBookings',
-      JSON.stringify([...existingBookings, booking]),
+      JSON.stringify([...sessionBookings, newRequest]),
     );
 
     navigate('/booking-confirmation', {
-      state: booking,
+      state: newRequest,
     });
   }
-
   return (
     <div className="app">
       <main className="profile-page">
